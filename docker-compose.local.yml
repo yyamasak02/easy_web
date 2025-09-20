@@ -18,14 +18,30 @@ services:
       - frontend
       - backend
 
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8787:8787"
+  #   environment:
+  #     - HONO_ENV=development
+  #   volumes:
+  #     - ./backend:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - backend
+  #     - db
   backend:
     build:
-      context: ./backend
+      context: ./backend_go
       dockerfile: Dockerfile
     ports:
-      - "8787:8787"
+      - "8000:8000"
     environment:
-      - HONO_ENV=development
+      - GO_ENV=development
     volumes:
       - ./backend:/app
       - /app/node_modules
