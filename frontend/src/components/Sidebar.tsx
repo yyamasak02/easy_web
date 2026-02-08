@@ -1,28 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-type MenuItem = {
-  label: string;
-  href: string;
-};
+import { useMenu } from "@/hooks/useMenu";
+import Link from "next/link";
 
 export default function Sidebar() {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchMenuItems = async () => {
-      // ここでAPIからメニュー項目を取得する例
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/menu`,
-      );
-      const data = await response.json();
-      setMenuItems(data);
-    };
-
-    fetchMenuItems();
-  }, []);
+  const { menuItems, isLoading } = useMenu();
 
   return (
     <>
@@ -59,12 +43,12 @@ export default function Sidebar() {
           <ul className="space-y-2 font-medium">
             {menuItems.map((item, index) => (
               <li key={index}>
-                <a
+                <Link
                   href={item.href}
                   className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   <span className="ml-3">{item.label}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

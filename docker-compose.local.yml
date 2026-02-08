@@ -4,7 +4,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile.dev
     ports:
       - "3000:3000"
     environment:
@@ -18,43 +18,27 @@ services:
       - frontend
       - backend
 
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8787:8787"
-  #   environment:
-  #     - HONO_ENV=development
-  #   volumes:
-  #     - ./backend:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - backend
-  #     - db
   backend:
     build:
-      context: ./backend_go
-      dockerfile: Dockerfile
+      context: ./backend
+      dockerfile: docker/Dockerfile.dev
     ports:
-      - "8000:8000"
+      - "8787:8787"
     environment:
-      - GO_ENV=development
+      - HONO_ENV=development
     volumes:
       - ./backend:/app
       - /app/node_modules
+      - /app/.wrangler
     depends_on:
       - db
     networks:
       - backend
       - db
-
   db:
     build:
       context: ./database
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     ports:
       - "5432:5432"
     environment:
