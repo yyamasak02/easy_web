@@ -2,6 +2,14 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
+  {
+    ignores: [
+      "**/node_modules/**", 
+      "**/dist/**", 
+      "backend/src/generated/**",
+      "**/generated/client/**"
+    ],
+  },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -9,8 +17,5 @@ export default tseslint.config(
       "@typescript-eslint/no-explicit-any": "warn",
       "no-console": "off",
     },
-  },
-  {
-    ignores: ["node_modules/", "dist/", "src/generated/"],
-  },
+  }
 );

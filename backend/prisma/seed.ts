@@ -1,23 +1,15 @@
 import "dotenv/config";
-import { PrismaClient } from "../src/generated/client";
+import { PrismaClient, User } from "../src/generated/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import upsertUser from "./seeders/user";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
 });
-
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  await prisma.user.deleteMany();
-
-  const alice = await prisma.user.create({
-    // Create users
-    data: {
-      email: "alice@example.com",
-      name: "Alice",
-    },
-  });
+  await upsertUser(prisma);
   console.log("Seed data inserted successfully.");
 }
 

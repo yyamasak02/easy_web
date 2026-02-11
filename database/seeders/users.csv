@@ -1,2 +1,0 @@
-"id","user_id","username","password_hash","salt","email"
-"1","1234567890","admin","ad","abc","example@gmail.com"

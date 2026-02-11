@@ -12,9 +12,6 @@ services:
       - /app/node_modules
     depends_on:
       - backend
-    networks:
-      - frontend
-      - backend
 
   backend:
     build:
@@ -31,9 +28,6 @@ services:
       - /app/.wrangler
     depends_on:
       - db
-    networks:
-      - backend
-      - db
   db:
     build:
       context: ./database
@@ -46,13 +40,6 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - db_data:/var/lib/postgresql/data
-    networks:
-      - db
 
 volumes:
   db_data:
-
-networks:
-  frontend:
-  backend:
-  db:
