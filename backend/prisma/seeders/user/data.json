@@ -1,8 +1,20 @@
 {
-  "columns": ["name", "email"],
+  "columns": ["name", "email", "hash_password"],
   "rows": [
-    ["Alice", "alice@example.com"],
-    ["Bob", "bob@example.com"],
-    ["Kevin", "kevin@example.com"]
+    [
+      "Alice",
+      "alice@example.com",
+      "$2b$10$Sky4eMwArX7nujia5kpPau00J1LBZCDTPGmrAYHc3X/yk0Q2MAJFu"
+    ],
+    [
+      "Bob",
+      "bob@example.com",
+      "$2b$10$Sxerbp.Bq6uF00UBivg9xedex8k6xHKZSAHt7oyszVqqpKT4mvNEK"
+    ],
+    [
+      "Kevin",
+      "kevin@example.com",
+      "$2b$10$zIriOJTM8eRKGPpyBa1Vvu7.lSBENIyG9oXVL7xrgug1kUBGagUTa"
+    ]
   ]
 }

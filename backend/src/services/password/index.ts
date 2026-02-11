@@ -1,9 +1,4 @@
-// ユーザーごとのパスワードハッシュ化と検証を行います
-// 1. create hash password
-// 2. verify password
-// 3. update password
-
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const SALT_ROUNDS: number = 10;
 

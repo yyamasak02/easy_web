@@ -1,18 +1,21 @@
 import { Hono } from "hono";
+import { executeLogin } from "../services/auth";
+import withPrisma from "../lib/prisma";
+import { PrismaClient } from "@prisma/client/extension";
+import { ContextWithPrisma } from "../types/prisma";
 
-const common = new Hono();
+const common = new Hono<ContextWithPrisma>();
 
-common.post("/login", async (c) => {
+common.post("/login", withPrisma, async (c) => {
   const form = await c.req.formData();
-  const username = form.get("username");
+  const email = form.get("email");
   const password = form.get("password");
-
-  // Here you would normally validate the username and password
-  if (username === "admin" && password === "password") {
-    return c.json({ message: "Login successful" });
-  } else {
-    return c.json({ message: "Invalid credentials" }, 401);
+  if (typeof email !== "string" || typeof password !== "string") {
+    return c.json({ success: false, message: "Invalid input" }, 400);
   }
+  const prisma: PrismaClient = c.get("prisma");
+  const result = await executeLogin(prisma, email, password);
+  return c.json(result);
 });
 
 export default common;
