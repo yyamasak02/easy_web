@@ -25,7 +25,8 @@ logs:
 	${DOCKER_COMPOSE_CMD} -f ${DOCKER_COMPOSE_FILE} logs -f $(s)
 
 restart:
-	$(DOCKER_COMPOSE_CMD) restart $(s)
+	@make down s="$(s)"
+	@make build s="$(s)"
 
 build:
 	@make down s="$(s)"

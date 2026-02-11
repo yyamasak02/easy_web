@@ -1,16 +1,25 @@
 import { findUserByEmail } from "../user";
 import { verifyPassword } from "../password";
+import { User } from "../../generated/client";
+import type { LoginSchema as LoginSchemaType } from "../../schemas/login";
+
+export type LoginResult = {
+  success: boolean;
+  message: string;
+};
 
 export const executeLogin = async (
   prisma: any,
-  email: string,
-  plainPassword: string,
-): Promise<{ success: boolean; message: string }> => {
-  const user = await findUserByEmail(prisma, email);
+  loginSchema: LoginSchemaType,
+): Promise<LoginResult> => {
+  const user: User | null = await findUserByEmail(prisma, loginSchema.email);
   if (!user) {
     return { success: false, message: "User not found" };
   }
-  const isValid = await verifyPassword(plainPassword, user.hash_password);
+  const isValid: boolean = await verifyPassword(
+    loginSchema.password,
+    user.hash_password,
+  );
   if (!isValid) {
     return { success: false, message: "Invalid password" };
   }

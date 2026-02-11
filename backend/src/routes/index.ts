@@ -1,21 +1,36 @@
 import { Hono } from "hono";
-import { executeLogin } from "../services/auth";
+import { executeLogin, LoginResult } from "../services/auth";
 import withPrisma from "../lib/prisma";
 import { PrismaClient } from "@prisma/client/extension";
 import { ContextWithPrisma } from "../types/prisma";
+import { validator } from "hono/validator";
+import { LoginSchema } from "../schemas/login";
+import type { LoginSchema as LoginSchemaType } from "../schemas/login";
 
 const common = new Hono<ContextWithPrisma>();
 
-common.post("/login", withPrisma, async (c) => {
-  const form = await c.req.formData();
-  const email = form.get("email");
-  const password = form.get("password");
-  if (typeof email !== "string" || typeof password !== "string") {
-    return c.json({ success: false, message: "Invalid input" }, 400);
-  }
-  const prisma: PrismaClient = c.get("prisma");
-  const result = await executeLogin(prisma, email, password);
-  return c.json(result);
-});
+common.post(
+  "/login",
+  withPrisma,
+  validator("form", (value, c) => {
+    const result = LoginSchema.safeParse({
+      email: value.email,
+      password: value.password,
+    });
+    if (!result.success) {
+      return c.json({ success: false, message: "Invalid input" }, 400);
+    }
+    return result.data;
+  }),
+  async (c) => {
+    const form: LoginSchemaType = await c.req.valid("form");
+    const prisma: PrismaClient = c.get("prisma");
+    const result: LoginResult = await executeLogin(prisma, form);
+    if (!result.success) {
+      return c.json(result, 400);
+    }
+    return c.json(result);
+  },
+);
 
 export default common;
