@@ -1,8 +1,6 @@
-// export const findUserByUsername = async (username: string) => {
-//     // Implement database logic to find user by username
-//     // Example using a hypothetical DB client
-//     const user = await db.user.findUnique({
-//         where: { username },
-//     });
-//     return user;
-// }
+import { PrismaClient } from "../../generated/client";
+
+export const findUserAll = async (prisma: PrismaClient) => {
+  const users = await prisma.user.findMany();
+  return users;
+};

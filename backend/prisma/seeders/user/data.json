@@ -2,6 +2,7 @@
   "columns": ["name", "email"],
   "rows": [
     ["Alice", "alice@example.com"],
-    ["Bob", "bob@example.com"]
+    ["Bob", "bob@example.com"],
+    ["Kevin", "kevin@example.com"]
   ]
 }

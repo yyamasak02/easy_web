@@ -2,9 +2,12 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import menuRoute from "./routes/menu/index.js";
 import commonRoute from "./routes/index.js";
+import userRoute from "./routes/user/index.js";
 import "dotenv/config";
+import type { ContextWithPrisma } from "./types/prisma.js";
 
-const app = new Hono();
+const app = new Hono<ContextWithPrisma>();
+
 app.use(
   "*",
   cors({
@@ -15,4 +18,5 @@ app.use(
 );
 app.route("/api", commonRoute);
 app.route("/api/menu", menuRoute);
+app.route("/api/user", userRoute);
 export default app;
