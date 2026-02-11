@@ -3,16 +3,25 @@
 
 import { useState } from "react";
 
-export default function TopNav() {
+type TopNavProps = {
+  siteName: string;
+  siteTopUrl: string;
+  menuItems: { label: string; href: string }[];
+};
+
+export default function TopNav(props: TopNavProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* ロゴ */}
-        <a href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
+        <a
+          href={props.siteTopUrl}
+          className="flex items-center space-x-2 rtl:space-x-reverse"
+        >
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            $サイト名
+            {props.siteName}
           </span>
         </a>
 
@@ -45,22 +54,16 @@ export default function TopNav() {
           id="navbar-default"
         >
           <ul className="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse mt-4 md:mt-0">
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-blue-500"
-              >
-                機能
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-blue-500"
-              >
-                お問い合わせ
-              </a>
-            </li>
+            {props.menuItems.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="block py-2 pl-3 pr-4 text-gray-900 rounded md:bg-transparent md:p-0 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

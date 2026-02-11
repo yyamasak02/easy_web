@@ -1,16 +1,18 @@
 import { Hono } from "hono";
+import { MenuItemResponse } from "../schemas/menu.schema";
 
 const menu = new Hono();
 menu.get("/", (c) => {
-  const menuItems = [
-    { label: "ホーム", href: "/" },
-    { label: "ログイン", href: "/login" },
-    { label: "体験レッスン", href: "/test" },
-    { label: "カレンダー", href: "/calender" },
-    { label: "お問い合わせ", href: "/contact" },
-    { label: "アクセス", href: "/access" },
-    { label: "料金表", href: "/fee" },
-  ];
+  const menuItems: MenuItemResponse = {
+    menuItems: [
+      { label: "ホーム", href: "/", iconName: "home" },
+      { label: "体験レッスン", href: "/challenge", iconName: "challenge" },
+      { label: "カレンダー", href: "/calendar", iconName: "calendar" },
+      { label: "お問い合わせ", href: "/contact", iconName: "contact" },
+      { label: "アクセス", href: "/access", iconName: "access" },
+      { label: "料金表", href: "/fee", iconName: "fee" },
+    ],
+  };
   return c.json(menuItems);
 });
 

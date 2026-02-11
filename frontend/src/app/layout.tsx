@@ -29,9 +29,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Sidebar />
         <main className="p-4 sm:ml-64">
-          <TopNav />
+          <TopNav
+            siteName="Hello World"
+            siteTopUrl="/"
+            menuItems={[
+              { label: "About", href: "/about" },
+              { label: "Contact", href: "/contact" },
+            ]}
+          />
+          <Sidebar />
           {children}
         </main>
       </body>

@@ -5,14 +5,18 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
-  const toTest = () => {
-    router.push("/test");
+  const toLogin = () => {
+    router.push("/login");
   };
 
   return (
-    <div>
-      <h1>Home</h1>
-      <button onClick={toTest}>to Test page</button>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center p-4">
+      <button
+        onClick={toLogin}
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+      >
+        to Login page
+      </button>
+    </main>
   );
 }

@@ -1,7 +1,7 @@
 import { fetchMenuItems } from "@/api/menu";
 import { useEffect, useState } from "react";
 
-type MenuItem = { label: string; href: string };
+type MenuItem = { label: string; href: string; iconName: string };
 
 export const useMenu = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -11,7 +11,8 @@ export const useMenu = () => {
     const load = async () => {
       try {
         const data = await fetchMenuItems();
-        setMenuItems(data);
+        const dataMenuItems: MenuItem[] = data.menuItems;
+        setMenuItems(dataMenuItems);
       } catch (error) {
         console.error("Failed to fetch menu:", error);
       } finally {
