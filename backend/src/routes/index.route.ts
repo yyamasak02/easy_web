@@ -1,11 +1,11 @@
 import { Hono } from "hono";
-import { executeLogin, LoginResult } from "../services/auth";
+import { executeLogin, LoginResult } from "../services/auth.service";
 import withPrisma from "../lib/prisma";
 import { PrismaClient } from "@prisma/client/extension";
-import { ContextWithPrisma } from "../types/prisma";
+import { ContextWithPrisma } from "../types/prisma.type";
 import { validator } from "hono/validator";
-import { LoginSchema } from "../schemas/login";
-import type { LoginSchema as LoginSchemaType } from "../schemas/login";
+import { LoginSchema } from "../schemas/login.schema";
+import type { LoginSchema as LoginSchemaType } from "../schemas/login.schema";
 
 const common = new Hono<ContextWithPrisma>();
 

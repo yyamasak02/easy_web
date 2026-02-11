@@ -1,10 +1,9 @@
 import { Hono } from "hono";
-import { findUserAll } from "../../services/user";
+import { findUserAll } from "../services/user.service";
 import { PrismaClient } from "@prisma/client/extension";
-import { ContextWithPrisma } from "../../types/prisma";
-import { createHashPassword } from "../../services/password";
-import withPrisma from "../../lib/prisma.js";
-import { User } from "../../generated/client";
+import { ContextWithPrisma } from "../types/prisma.type";
+import withPrisma from "../lib/prisma.js";
+import { User } from "../generated/client";
 
 const user = new Hono<ContextWithPrisma>();
 

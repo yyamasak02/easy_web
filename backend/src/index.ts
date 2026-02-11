@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import menuRoute from "./routes/menu/index.js";
-import commonRoute from "./routes/index.js";
-import userRoute from "./routes/user/index.js";
+import menuRoute from "./routes/menu.route.js";
+import commonRoute from "./routes/index.route.js";
+import userRoute from "./routes/user.route.js";
 import "dotenv/config";
-import type { ContextWithPrisma } from "./types/prisma.js";
+import type { ContextWithPrisma } from "./types/prisma.type.js";
 
 const app = new Hono<ContextWithPrisma>();
 

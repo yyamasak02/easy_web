@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "../../generated/client";
+import { PrismaClient, User } from "../generated/client";
 
 export const findUserAll = async (prisma: PrismaClient): Promise<User[]> => {
   return await prisma.user.findMany();

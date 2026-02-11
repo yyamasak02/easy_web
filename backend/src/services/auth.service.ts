@@ -1,7 +1,7 @@
-import { findUserByEmail } from "../user";
-import { verifyPassword } from "../password";
-import { User } from "../../generated/client";
-import type { LoginSchema as LoginSchemaType } from "../../schemas/login";
+import { findUserByEmail } from "./user.service";
+import { verifyPassword } from "./password.service";
+import { User } from "../generated/client";
+import type { LoginSchema as LoginSchemaType } from "../schemas/login.schema";
 
 export type LoginResult = {
   success: boolean;
